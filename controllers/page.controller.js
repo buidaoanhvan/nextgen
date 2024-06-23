@@ -17,3 +17,22 @@ exports.homePage = async (req, res) => {
   console.log(contents);
   res.render("web/home", { setting, contents });
 };
+
+exports.aboutPage = async (req, res) => {
+  const setting = await getSettings();
+  const data = await prisma.pages.findFirst({
+    where: {
+      id: 2,
+    },
+    include: {
+      contents: true,
+    },
+  });
+
+  const contents = data.contents.reduce((acc, content) => {
+    acc[content.code] = content.content;
+    return acc;
+  }, {});
+  console.log(contents);
+  res.render("web/about", { setting, contents });
+};

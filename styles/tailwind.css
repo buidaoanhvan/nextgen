@@ -31,3 +31,14 @@
 .scrolling-up img, .scrolling-down img {
     display: block;
 }
+
+h1{
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.active{
+    font-weight: 600;
+    color: #7A9576;
+    font-size: 20px;
+}
