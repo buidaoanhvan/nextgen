@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes scroll-up {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+@keyframes scroll-down {
+    0% {
+        transform: translateY(-50%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+.scrolling-up {
+    animation: scroll-up 35s linear infinite;
+}
+
+.scrolling-down {
+    animation: scroll-down 30s linear infinite;
+}
+
+.scrolling-up img, .scrolling-down img {
+    display: block;
+}

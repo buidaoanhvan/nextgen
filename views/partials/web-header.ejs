@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NextGen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="/css/tailwind.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-[#7A9576] h-[40px]">
+        <div class="container mx-auto flex py-[10px] justify-around">
+            <div class="flex items-center">
+                <img src="/img/phone_in_talk.png" alt="phone_in_talk" class="w-[18px] h-[18px] my-auto" width="18px"
+                    height="18px">
+                <span class="mx-2 text-white text-[16px] font-medium">
+                    <%= setting.phone %>
+                </span>
+                <img src="/img/attach_email.png" alt="phone_in_talk" class="w-[18px] h-[18px] my-auto ml-4" width="18px"
+                    height="18px">
+                <span class="mx-2 text-white text-[16px] font-medium">
+                    <%= setting.email %>
+                </span>
+            </div>
+            <div class="flex items-center">
+                <img src="/img/youtube.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+                <img src="/img/facebook.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+                <img src="/img/insta.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+                <img src="/img/zalo.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+            </div>
+        </div>
+    </div>
+    <div class="bg-[#F3F6F3] h-[66px]">
+        <div class="container mx-auto flex py-[8px] justify-around">
+            <div class="bg-[#7A9576] h-[50px] w-[126px] p-3">
+                <img src="<%= setting.logo %>" alt="logo" class="w-full h-full">
+            </div>
+            <div class="flex items-center">
+                <ul class="flex items-center">
+                    <li class="mx-2">Trang chủ</li>
+                    <li class="mx-2">Giới thiệu</li>
+                    <li class="mx-2">Sản phẩm</li>
+                    <li class="mx-2">Blog</li>
+                    <li class="mx-2">Liên hệ</li>
+                </ul>
+                <div class="mx-2 relative">
+                    <img src="/img/search.png" alt="" class="absolute top-1 right-1 w-6 h-6">
+                    <input type="text" placeholder="Nhập để tìm kiếm"
+                        class="py-1 px-2 border border-[#415C3F] bg-[#F3F6F3] rounded-lg text-sm">
+                </div>
+            </div>
+        </div>
+    </div>

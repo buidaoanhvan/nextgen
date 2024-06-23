@@ -1,0 +1,70 @@
+<div class="h-[500px] bg-cover bg-center text-white p-7" style="background-image: url('<%= setting.bg_footer%>');">
+    <div class="container mx-auto">
+        <img src="<%= setting.logo%>" alt="logo" class="mb-3 mt-7">
+        <p class="text-sm max-w-[300px]">Almost before we knew it, we had left the ground. Almost before we knew it, we
+            had </p>
+
+    </div>
+    <div class="grid grid-cols-4 gap-7 container mx-auto py-7">
+        <div>
+            <div class="flex items-center">
+                <img class="w-10 h-10" src="/img/distance.png" alt="logo" class="mb-3">
+                <p>
+                    <%= setting.address%>
+                </p>
+            </div>
+            <div class="flex items-center"><img class="w-10 h-10" src="/img/forward_to_inbox.png" alt="logo"
+                    class="mb-3">
+                <p>
+                    <%= setting.email%>
+                </p>
+            </div>
+            <div class="flex items-center"><img class="w-10 h-10" src="/img/contact_phone.png" alt="logo" class="mb-3">
+                <p>
+                    <%= setting.phone%>
+                </p>
+            </div>
+            <div class="flex items-center"><img class="w-10 h-10" src="/img/web.png" alt="logo" class="mb-3">
+                <p>
+                    <%= setting.website%>
+                </p>
+            </div>
+        </div>
+        <div>
+            <h1 class="font-bold text-xl mb-3">Danh Mục</h1>
+            <ul>
+                <li class="mb-3">Trang chủ</li>
+                <li class="mb-3">Giới thiệu</li>
+                <li class="mb-3">Sản phẩm</li>
+                <li class="mb-3">Blog</li>
+                <li class="mb-3">Liên hệ</li>
+            </ul>
+        </div>
+        <div>
+            <h1 class="font-bold text-xl mb-3">Chính Sách</h1>
+            <ul>
+                <li class="mb-3">Mua hàng</li>
+                <li class="mb-3">Giao hàng</li>
+                <li class="mb-3">Câu hỏi thường gặp</li>
+                <li class="mb-3">Chứng nhận</li>
+            </ul>
+        </div>
+        <div>
+            <h1 class="font-bold text-xl mb-3">Map</h1>
+            <%- setting.google_map%>
+            <div class="flex items-center mt-3">
+                <img src="/img/youtube.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+                <img src="/img/facebook.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+                <img src="/img/insta.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+                <img src="/img/zalo.png" alt="phone_in_talk" class="w-[22px] h-[22px] my-auto mr-2" width="22px"
+                    height="22px">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

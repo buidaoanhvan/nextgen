@@ -1,0 +1,216 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model contents {
+  id         Int      @id @default(autoincrement())
+  page_id    Int?
+  code       String?  @db.VarChar(255)
+  name       String?  @db.VarChar(255)
+  type       String?  @db.VarChar(255)
+  position   Int?
+  content    String?  @db.LongText
+  meta       String?  @db.LongText
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
+  pages      pages?   @relation(fields: [page_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "elements_ibfk_1")
+
+  @@index([page_id], map: "page_id")
+}
+
+model order_item_toppings {
+  id            Int          @id @default(autoincrement())
+  order_item_id Int?
+  topping_id    Int?
+  order_items   order_items? @relation(fields: [order_item_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "order_item_toppings_ibfk_1")
+  toppings      toppings?    @relation(fields: [topping_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "order_item_toppings_ibfk_2")
+
+  @@index([order_item_id], map: "order_item_id")
+  @@index([topping_id], map: "topping_id")
+}
+
+model order_items {
+  id                  Int                   @id @default(autoincrement())
+  order_id            Int?
+  item                String?               @db.LongText
+  quantity            Int?
+  price               Int?
+  order_item_toppings order_item_toppings[]
+}
+
+model orders {
+  id             Int      @id @default(autoincrement())
+  customer_id    Int?
+  address        String?  @db.VarChar(255)
+  phone          String?  @db.VarChar(255)
+  status         Int?     @default(0)
+  order_date     DateTime @default(now()) @db.Timestamp(0)
+  voucher_code   String?  @db.VarChar(255)
+  discount_price Int?
+  total_price    Int?
+  ship_price     Int?
+  tax_price      Int?
+  payment_price  Int?
+}
+
+model pages {
+  id         Int        @id @default(autoincrement())
+  title      String?    @db.VarChar(255)
+  slug       String?    @db.VarChar(255)
+  meta       String?    @db.LongText
+  created_at DateTime   @default(now()) @db.Timestamp(0)
+  updated_at DateTime   @default(now()) @db.Timestamp(0)
+  contents   contents[]
+}
+
+model posts {
+  id         Int      @id @default(autoincrement())
+  title      String?  @db.VarChar(255)
+  slug       String?  @db.VarChar(255)
+  content    String?  @db.Text
+  author_id  Int?
+  status     String?  @default("draft") @db.VarChar(50)
+  meta       String?  @db.LongText
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
+  users      users?   @relation(fields: [author_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "posts_ibfk_1")
+
+  @@index([author_id], map: "author_id")
+}
+
+model product_images {
+  id         Int       @id @default(autoincrement())
+  product_id Int?
+  image_url  String    @db.VarChar(255)
+  added_at   DateTime  @default(now()) @db.Timestamp(0)
+  products   products? @relation(fields: [product_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "product_images_ibfk_1")
+
+  @@index([product_id], map: "product_id")
+}
+
+model product_sizes {
+  product_id Int
+  size_id    Int
+  products   products @relation(fields: [product_id], references: [id], onUpdate: Restrict, map: "product_sizes_ibfk_1")
+  sizes      sizes    @relation(fields: [size_id], references: [id], onUpdate: Restrict, map: "product_sizes_ibfk_2")
+
+  @@id([product_id, size_id])
+  @@index([size_id], map: "size_id")
+}
+
+model product_tags {
+  product_id Int
+  tag_id     Int
+  products   products @relation(fields: [product_id], references: [id], onUpdate: Restrict, map: "product_tags_ibfk_1")
+  tags       tags     @relation(fields: [tag_id], references: [id], onUpdate: Restrict, map: "product_tags_ibfk_2")
+
+  @@id([product_id, tag_id])
+  @@index([tag_id], map: "tag_id")
+}
+
+model product_toppings {
+  product_id Int
+  topping_id Int
+  products   products @relation(fields: [product_id], references: [id], onUpdate: Restrict, map: "product_toppings_ibfk_1")
+  toppings   toppings @relation(fields: [topping_id], references: [id], onUpdate: Restrict, map: "product_toppings_ibfk_2")
+
+  @@id([product_id, topping_id])
+  @@index([topping_id], map: "topping_id")
+}
+
+model products {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  description      String?            @db.Text
+  price            Int?
+  image_url        String?            @db.VarChar(255)
+  product_images   product_images[]
+  product_sizes    product_sizes[]
+  product_tags     product_tags[]
+  product_toppings product_toppings[]
+  user_favorites   user_favorites[]
+}
+
+model settings {
+  id         Int      @id @default(autoincrement())
+  key        String?  @db.VarChar(255)
+  name       String?  @db.Text
+  value      String?  @db.Text
+  type       String?  @db.VarChar(50)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
+}
+
+model sizes {
+  id               Int             @id @default(autoincrement())
+  name             String?         @db.VarChar(50)
+  additional_price Int?
+  product_sizes    product_sizes[]
+}
+
+model tags {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  product_tags product_tags[]
+}
+
+model toppings {
+  id                  Int                   @id @default(autoincrement())
+  name                String?               @db.VarChar(255)
+  additional_price    Int?
+  order_item_toppings order_item_toppings[]
+  product_toppings    product_toppings[]
+}
+
+model user_favorites {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  product_id Int?
+  added_at   DateTime  @default(now()) @db.Timestamp(0)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "user_favorites_ibfk_1")
+  products   products? @relation(fields: [product_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "user_favorites_ibfk_2")
+
+  @@index([product_id], map: "product_id")
+  @@index([user_id], map: "user_id")
+}
+
+model users {
+  id             Int              @id @default(autoincrement())
+  full_name      String?          @db.VarChar(255)
+  username       String?          @db.VarChar(255)
+  email          String?          @db.VarChar(255)
+  phone          String?          @db.VarChar(20)
+  address        String?          @db.VarChar(255)
+  password       String?          @db.VarChar(255)
+  status         Int?             @default(0)
+  roles          String?          @db.LongText
+  created_at     DateTime         @default(now()) @db.Timestamp(0)
+  updated_at     DateTime         @default(now()) @db.Timestamp(0)
+  posts          posts[]
+  user_favorites user_favorites[]
+  vouchers       vouchers[]
+}
+
+model vouchers {
+  id             Int       @id @default(autoincrement())
+  code           String?   @db.VarChar(255)
+  title          String?   @db.Text
+  description    String?   @db.Text
+  discount_type  String?   @db.VarChar(255)
+  discount_value Int?
+  discount_max   Int?
+  start_date     DateTime? @db.Date
+  end_date       DateTime? @db.Date
+  user_id        Int?
+  status         Int?      @default(0)
+  created_at     DateTime  @default(now()) @db.Timestamp(0)
+  updated_at     DateTime  @default(now()) @db.Timestamp(0)
+  users          users?    @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "vouchers_ibfk_1")
+
+  @@index([user_id], map: "user_id")
+}
