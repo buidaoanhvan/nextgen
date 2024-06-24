@@ -35,6 +35,7 @@
 h1{
     font-size: 38px;
     font-weight: 700;
+    line-height: 50px;
 }
 
 .active{
@@ -42,3 +43,16 @@ h1{
     color: #7A9576;
     font-size: 20px;
 }
+
+.accordion-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.2s ease-out, opacity 0.2s ease-out;
+    opacity: 0;
+  }
+  .accordion-item.active .accordion-content {
+    max-height: 500px; /* Adjust according to content size */
+    opacity: 1;
+    padding: 16px;
+    font-weight: normal;
+  }

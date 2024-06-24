@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 exports.homePage = async (req, res) => {
   const setting = await getSettings();
   const data = await prisma.pages.findFirst({
+    where: {
+      id: 1,
+    },
     include: {
       contents: true,
     },
@@ -28,11 +31,49 @@ exports.aboutPage = async (req, res) => {
       contents: true,
     },
   });
-
   const contents = data.contents.reduce((acc, content) => {
     acc[content.code] = content.content;
     return acc;
   }, {});
+
   console.log(contents);
   res.render("web/about", { setting, contents });
+};
+
+exports.policyPage = async (req, res) => {
+  const setting = await getSettings();
+  const data = await prisma.pages.findFirst({
+    where: {
+      id: 3,
+    },
+    include: {
+      contents: true,
+    },
+  });
+  const contents = data.contents.reduce((acc, content) => {
+    acc[content.code] = content.content;
+    return acc;
+  }, {});
+
+  console.log(contents);
+  res.render("web/policy", { setting, contents });
+};
+
+exports.contactPage = async (req, res) => {
+  const setting = await getSettings();
+  const data = await prisma.pages.findFirst({
+    where: {
+      id: 4,
+    },
+    include: {
+      contents: true,
+    },
+  });
+  const contents = data.contents.reduce((acc, content) => {
+    acc[content.code] = content.content;
+    return acc;
+  }, {});
+
+  console.log(contents);
+  res.render("web/contact", { setting, contents });
 };
