@@ -1,0 +1,139 @@
+<%- include('../partials/web-header.ejs') %>
+<div
+  class="h-[529px] bg-cover bg-center mb-24"
+  style="background-image: url('<%= contents.CONTACT_BANNER_1 %>')"
+>
+  <div
+    class="container mx-auto text-white flex flex-col justify-center h-[529px] items-center"
+  >
+    <h1>CONTACT US</h1>
+    <p>
+      Almost before we knew it, we had left the ground. We knew it, we had left
+      the ground.
+    </p>
+  </div>
+</div>
+<div class="container mx-auto mb-24">
+  <h1 class="mb-3 text-3xl mb-8">Liên Hệ Với Chúng Tôi</h1>
+  <div class="grid grid-cols-3 shadow p-2 bg-[#F3F6F3] rounded">
+    <div class="shadow p-8 rounded bg-[#7A9576] text-white">
+      <h1 class="text-2xl mb-3">Contact infomation</h1>
+      <p>Almost before we knew it, we had left the ground.</p>
+      <div>
+        <div class="flex items-center mt-5">
+          <img
+            class="w-10 h-10"
+            src="/img/distance.png"
+            alt="logo"
+            class="mb-3"
+          />
+          <p><%= setting.address%></p>
+        </div>
+        <div class="flex items-center">
+          <img
+            class="w-10 h-10"
+            src="/img/forward_to_inbox.png"
+            alt="logo"
+            class="mb-3"
+          />
+          <p><%= setting.email%></p>
+        </div>
+        <div class="flex items-center">
+          <img
+            class="w-10 h-10"
+            src="/img/contact_phone.png"
+            alt="logo"
+            class="mb-3"
+          />
+          <p><%= setting.phone%></p>
+        </div>
+        <div class="flex items-center">
+          <img class="w-10 h-10" src="/img/web.png" alt="logo" class="mb-3" />
+          <p><%= setting.website%></p>
+        </div>
+        <div>
+          <div class="flex justify-center mt-5">
+            <img
+              src="/img/youtube.png"
+              alt="phone_in_talk"
+              class="w-[32px] h-[32px] my-auto mr-2"
+              width="30px"
+              height="30px"
+            />
+            <img
+              src="/img/facebook.png"
+              alt="phone_in_talk"
+              class="w-[32px] h-[32px] my-auto mr-2"
+              width="30px"
+              height="30px"
+            />
+            <img
+              src="/img/insta.png"
+              alt="phone_in_talk"
+              class="w-[32px] h-[32px] my-auto mr-2"
+              width="30px"
+              height="30px"
+            />
+            <img
+              src="/img/zalo.png"
+              alt="phone_in_talk"
+              class="w-[32px] h-[32px] my-auto mr-2"
+              width="30px"
+              height="30px"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-10 col-span-2">
+      <h1 class="text-xl mb-3 text-[#415C3F]">Send me your idea</h1>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col mb-3">
+          <label for="">Họ và Tên:</label>
+          <input
+            type="text"
+            class="border h-[34px] p-2 border-[#7A9576] rounded"
+            placeholder="Nhập họ và tên"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label for="">Số điện thoại:</label>
+          <input
+            type="text"
+            class="border h-[34px] p-2 border-[#7A9576] rounded"
+            placeholder="Nhập số điện thoại"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col mb-3">
+        <label for="">Tiêu đề:</label>
+        <input
+          type="text"
+          class="border h-[34px] p-2 border-[#7A9576] rounded"
+          placeholder="Nhập tiêu đề"
+        />
+      </div>
+      <div class="flex flex-col mb-3">
+        <label for="">Lời nhắn:</label>
+        <textarea
+          type="text"
+          class="border p-2 border-[#7A9576] rounded"
+          placeholder="Lời nhắn"
+          rows="3"
+        ></textarea>
+      </div>
+      <button class="py-2 px-8 bg-[#7A9576] rounded mt-3 text-white">
+        Gửi lời nhắn
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto mb-24">
+  <div class="grid grid-cols-2">
+    <div class="text-white flex justify-center items-center"><%- setting.google_map%></div>
+    <div class="p-8"><%- contents.INFO_COMPANY%></div>
+  </div>
+</div>
+
+<%- include('../partials/web-footer.ejs') %>

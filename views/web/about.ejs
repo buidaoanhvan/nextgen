@@ -1,66 +1,99 @@
 <%- include('../partials/web-header.ejs') %>
-  <!--section 1-->
-  <div class="h-[600px] bg-cover bg-center grid grid-cols-2 gap-2 content-center"
-    style="background-image: url('<%= contents.BANNER_1_ABOUT%>');">
-    <div class="w-full max-w-[534px] my-auto ml-auto p-3 mr-16">
-      <h1 class="text-white text-5xl font-bold mb-3">
-        aaaa
-      </h1>
-      <p class="text-white text-lg mb-8">
-        ccccc
-      </p>
-      <button class="my-5 border border-[#7A9576] px-4 py-2 bg-[#E4EAE1] rounded-md text-[#7A9576] text-sm">Chọn món
-        ngay</button>
+<!--section 1-->
+<div class="container mx-auto">
+  <div
+    class="h-[600px] bg-cover bg-center grid grid-cols-2 gap-2 content-center"
+    style="background-image: url('<%= contents.BANNER_1_ABOUT%>')"
+  >
+    <div class="w-full max-w-[534px] my-auto mx-auto">
+      <%- contents.CONTENT_1_ABOUT%>
+      <button
+        class="my-5 border border-[#7A9576] px-4 py-2 bg-[#E4EAE1] rounded-md text-[#7A9576] text-sm"
+      >
+        Chọn món ngay
+      </button>
     </div>
-    <div>
-    </div>
+    <div></div>
   </div>
-  <!--section 2-->
-  <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 container mx-auto mt-36 justify-center">
-    <div class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[360px] mx-auto flex flex-col justify-end rounded-3xl mb-36">
-      <img src="<%= contents.CARD_2_IMG_1_HOME %>" class="absolute m-auto left-0 right-0 bottom-[45%]"
-        alt="<%= contents.CARD_2_TITLE_1_HOME %>">
+</div>
+
+<!--section 2-->
+<div class="container mt-24 mx-auto relative">
+  <div class="mb-24 mx-8"><%- contents.CARD_2_TITLE_ABOUT %></div>
+  <img
+    src="/img/bg_about_2.png"
+    class="absolute w-[600px] h-[600px] right-[-50px] top-[-50px]"
+  />
+  <div
+    class="grid max-w-[1200px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto gap-5 justify-center"
+  >
+    <div
+      class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[360px] mx-auto flex flex-col justify-end rounded-3xl mb-16"
+    >
+      <img
+        src="<%= contents.CARD_2_IMG_1_ABOUT %>"
+        class="absolute m-auto left-0 right-0 bottom-[45%]"
+        alt="<%= contents.CARD_2_TITLE_1_ABOUT %>"
+      />
       <h1 class="text-center text-lg mb-3">
         <%= contents.CARD_2_TITLE_1_HOME %>
       </h1>
-      <p class="text-center">
-        <%= contents.CARD_2_CONTENT_1_HOME %>
-      </p>
+      <p class="text-center"><%= contents.CARD_2_CONTENT_1_ABOUT %></p>
     </div>
-    <div class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-36">
-      <img src="<%= contents.CARD_2_IMG_2_HOME %>" class="absolute m-auto left-0 right-0 bottom-[45%]"
-        alt="<%= contents.CARD_2_TITLE_2_HOME %>">
+    <div
+      class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-16"
+    >
+      <img
+        src="<%= contents.CARD_2_IMG_2_ABOUT %>"
+        class="absolute m-auto left-0 right-0 bottom-[45%]"
+        alt="<%= contents.CARD_2_TITLE_2_ABOUT %>"
+      />
       <h1 class="text-center text-lg mb-3">
-        <%= contents.CARD_2_TITLE_2_HOME %>
+        <%= contents.CARD_2_TITLE_2_ABOUT %>
       </h1>
-      <p class="text-center">
-        <%= contents.CARD_2_CONTENT_2_HOME %>
-      </p>
+      <p class="text-center"><%= contents.CARD_2_CONTENT_2_ABOUT %></p>
     </div>
-    <div class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-36">
-      <img src="<%= contents.CARD_2_IMG_3_HOME %>" class="absolute m-auto left-0 right-0 bottom-[45%]"
-        alt="<%= contents.CARD_2_TITLE_3_HOME %>">
+    <div
+      class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-16"
+    >
+      <img
+        src="<%= contents.CARD_2_IMG_3_ABOUT %>"
+        class="absolute m-auto left-0 right-0 bottom-[45%]"
+        alt="<%= contents.CARD_2_TITLE_3_ABOUT %>"
+      />
       <h1 class="text-center text-lg mb-3">
-        <%= contents.CARD_2_TITLE_3_HOME %>
+        <%= contents.CARD_2_TITLE_3_ABOUT %>
       </h1>
-      <p class="text-center">
-        <%= contents.CARD_2_CONTENT_3_HOME %>
-      </p>
+      <p class="text-center"><%= contents.CARD_2_CONTENT_3_ABOUT %></p>
     </div>
-  </div> -->
-  <!--section 3-->
-  <!-- <div class="grid grid-cols-3 mb-36 max-w-[1920px] mx-auto">
-    <div class="flex justify-end">
-      <img src="<%= contents.BG_3_HOME%>" alt="" class="max-h-[400px]">
-    </div>
-    <div class="col-span-2 p-8">
-      <%- contents.CONTENT_3_HOME %>
-        <button class="my-5 border border-[#7A9576] px-4 py-2 bg-[#E4EAE1] rounded-md text-[#7A9576] text-sm">Go to
-          About</button>
-    </div>
-  </div> -->
-  <!--section 4-->
-  <!-- <div class="container my-36 mx-auto">
-    <img src="<%= contents.BANNER_SALE_HOME%>" alt="" class="max-h-[400px]">
-  </div> -->
-  <%- include('../partials/web-footer.ejs') %>
+  </div>
+</div>
+<!--section 3-->
+<div
+  class="container mx-auto grid grid-cols-2 gap-5 justify-center relative mb-16"
+>
+  <div class="mx-8"><%- contents.CONTENT_ABOUT_3 %></div>
+  <div class="flex mt-16">
+    <img src="<%- contents.IMG_ABOUT_3 %>" alt="" srcset="" />
+  </div>
+</div>
+<!--section 4-->
+<div
+  class="container mx-auto grid grid-cols-2 gap-5 justify-center relative mb-16"
+>
+  <div class="flex mt-16">
+    <img src="<%- contents.IMG_ABOUT_4 %>" alt="" srcset="" />
+  </div>
+  <div class="mx-8"><%- contents.CONTENT_ABOUT_4 %></div>
+</div>
+<!--section 5-->
+<div
+  class="container mx-auto grid grid-cols-2 gap-5 justify-center relative mb-24"
+>
+  <div class="mx-8"><%- contents.CONTENT_ABOUT_5 %></div>
+  <div class="flex mt-16">
+    <img src="<%- contents.IMG_ABOUT_5 %>" alt="" srcset="" />
+  </div>
+</div>
+
+<%- include('../partials/web-footer.ejs') %>
