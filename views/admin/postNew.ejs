@@ -96,6 +96,9 @@
   </div>
 </div>
 <script>
+  var input = document.querySelector('#post_keyword');
+  var tagify = new Tagify(input);
+
   new FroalaEditor("#editor", {
     imageUploadURL: "/upload",
     heightMin: 800, // Set minimum height
