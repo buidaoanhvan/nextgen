@@ -71,6 +71,7 @@ model pages {
 model posts {
   id         Int      @id @default(autoincrement())
   title      String?  @db.VarChar(255)
+  img        String?  @db.VarChar(255)
   slug       String?  @db.VarChar(255)
   content    String?  @db.Text
   author_id  Int?
