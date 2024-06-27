@@ -1,0 +1,176 @@
+<%- include('../partials/admin-header.ejs') %>
+<div class="p-4 sm:ml-64">
+  <form action="/admin/post/update/<%= post.id %>" method="POST">
+  <div
+    class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 flex justify-between items-center"
+  >
+    <h1 class="text-xl">Cập nhật bài viết</h1>
+    <button
+     type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+    >
+      Cập nhật
+    </button>
+  </div>
+  <div
+    class="max-full p-5 mt-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+  >
+      <!-- title -->
+      <div class="mb-6">
+        <label
+          for="post_title"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Tiêu đề bài viết:</label
+        >
+        <input
+          type="text"
+          id="post_title"
+          name="post_title"
+          value="<%= post.title %>"
+          placeholder="Nhập tiêu đề bài viết"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+      <!-- link -->
+      <div class="mb-6">
+        <label
+          for="post_link"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Link bài viết:</label
+        >
+        <input
+          type="text"
+          id="post_link"
+          name="post_link"
+          value="<%= post.slug %>"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+      <!-- img -->
+      <div class="mb-6">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          for="post_img"
+          >Ảnh đại diện:</label
+        >
+        <input
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          id="upload_post_img"
+          type="file"
+          accept="image/*"
+        />
+        <input type="text" id="post_img" name="post_img" value="<%= post.img %>" hidden />
+        <img src="<%= post.img %>" alt="" id="url_post_img" class="w-60 h-32 mt-5" />
+      </div>
+      <!-- key -->
+      <div class="mb-6">
+        <!-- Input for keywords -->
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          for="post_keyword"
+          >Keyword bài viết:</label
+        >
+        <textarea
+          name="post_keyword"
+          id="post_keyword"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        >
+        <%= post.meta %>
+      </textarea>
+      </div>
+      <!-- content -->
+      <div class="mb-6">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          for="post_content"
+          >Nội dung bài viết:</label
+        >
+        <textarea id="editor" name="post_content">
+          <%= post.content %>
+        </textarea>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  var input = document.querySelector("#post_keyword");
+  var tagify = new Tagify(input);
+  // editer
+  new FroalaEditor("#editor", {
+    imageUploadURL: "/upload",
+    heightMin: 800, // Set minimum height
+    heightMax: 1000, // Set maximum height
+    toolbarButtons: [
+      "bold",
+      "italic",
+      "underline",
+      "strikeThrough",
+      "subscript",
+      "superscript",
+      "|",
+      "fontFamily",
+      "fontSize",
+      "color",
+      "inlineStyle",
+      "paragraphStyle",
+      "|",
+      "paragraphFormat",
+      "align",
+      "formatOL",
+      "formatUL",
+      "outdent",
+      "indent",
+      "quote",
+      "-",
+      "insertLink",
+      "insertImage",
+      "insertVideo",
+      "insertFile",
+      "insertTable",
+      "|",
+      "emoticons",
+      "specialCharacters",
+      "insertHR",
+      "selectAll",
+      "clearFormatting",
+      "|",
+      "print",
+      "help",
+      "html",
+      "|",
+      "undo",
+      "redo",
+    ],
+  });
+  // upload img
+  document
+    .getElementById("upload_post_img")
+    .addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const imageUrl = data.link;
+            document.getElementById("post_img").value = imageUrl;
+            document.getElementById("url_post_img").src = imageUrl;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    });
+  // create slug
+  document.getElementById("post_title").addEventListener("input", function () {
+    const title = this.value;
+    const slug = generateSlug(title);
+    document.getElementById("post_link").value = slug;
+  });
+</script>
+<%- include('../partials/admin-footer.ejs') %>
