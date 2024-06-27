@@ -77,3 +77,17 @@ exports.contactPage = async (req, res) => {
   console.log(contents);
   res.render("web/contact", { setting, contents });
 };
+
+exports.postPageDetail = async (req, res) => {
+  const setting = await getSettings();
+  const post = await prisma.posts.findFirst({
+    where: {
+      slug: req.params.slug,
+    },
+    include: {
+      users: true,
+    },
+  });
+  console.log(post);
+  res.render("web/postDetail", { setting, post });
+};

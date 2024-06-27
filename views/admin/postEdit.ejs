@@ -1,15 +1,15 @@
 <%- include('../partials/admin-header.ejs') %>
 <div class="p-4 sm:ml-64">
-  <form action="" method="POST">
+  <form action="/admin/post/update/<%= post.id %>" method="POST">
   <div
     class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 flex justify-between items-center"
   >
-    <h1 class="text-xl">Bài viết mới</h1>
+    <h1 class="text-xl">Cập nhật bài viết</h1>
     <button
      type="submit"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
     >
-      Xuất bản
+      Cập nhật
     </button>
   </div>
   <div
@@ -26,6 +26,7 @@
           type="text"
           id="post_title"
           name="post_title"
+          value="<%= post.title %>"
           placeholder="Nhập tiêu đề bài viết"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
@@ -41,7 +42,7 @@
           type="text"
           id="post_link"
           name="post_link"
-          value=""
+          value="<%= post.slug %>"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
@@ -58,8 +59,8 @@
           type="file"
           accept="image/*"
         />
-        <input type="text" id="post_img" name="post_img" hidden />
-        <img src="" alt="" id="url_post_img" class="w-60 h-32 mt-5" />
+        <input type="text" id="post_img" name="post_img" value="<%= post.img %>" hidden />
+        <img src="<%= post.img %>" alt="" id="url_post_img" class="w-60 h-32 mt-5" />
       </div>
       <!-- key -->
       <div class="mb-6">
@@ -73,7 +74,9 @@
           name="post_keyword"
           id="post_keyword"
           class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        ></textarea>
+        >
+        <%= post.meta %>
+      </textarea>
       </div>
       <!-- content -->
       <div class="mb-6">
@@ -82,7 +85,9 @@
           for="post_content"
           >Nội dung bài viết:</label
         >
-        <textarea id="editor" name="post_content"></textarea>
+        <textarea id="editor" name="post_content">
+          <%= post.content %>
+        </textarea>
       </div>
     </form>
   </div>

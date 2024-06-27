@@ -61,3 +61,7 @@ h1{
 .tagify__input {
     resize: vertical; /* Allow vertical resize */
 }
+
+img[src=""] {
+    display: none;
+}
