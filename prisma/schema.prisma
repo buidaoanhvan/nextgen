@@ -127,6 +127,7 @@ model product_toppings {
 model products {
   id               Int                @id @default(autoincrement())
   name             String?            @db.VarChar(255)
+  slug             String?            @db.VarChar(255)
   description      String?            @db.Text
   price            Int?
   image_url        String?            @db.VarChar(255)

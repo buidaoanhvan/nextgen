@@ -3,7 +3,7 @@
   <div
     class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 flex justify-between items-center"
   >
-    <h1 class="text-xl">Tạo sản phẩm</h1>
+    <h1 class="text-xl">Cập nhật sản phẩm</h1>
     <form action="" method="post">
     <button type="submit"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -26,6 +26,7 @@
         id="product_title"
         name="product_title"
         placeholder="Nhập tên sản phẩm"
+        value="<%=product.name%>"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       />
     </div>
@@ -40,7 +41,7 @@
       type="text"
       id="product_link"
       name="product_link"
-      value=""
+      value="<%=product.slug%>"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     />
   </div>
@@ -55,6 +56,7 @@
         type="number"
         id="product_price"
         name="product_price"
+        value="<%=product.price%>"
         placeholder="Nhập giá sản phẩm"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       />
@@ -72,8 +74,23 @@
         type="file"
         accept="image/*"
       />
-      <input type="text" id="product_img" name="product_img" hidden />
-      <img src="" alt="" id="url_product_img" class="w-60 h-32 mt-5" />
+      <input type="text" id="product_img" name="product_img" value="<%=product.image_url%>" hidden />
+      <img src="<%=product.image_url%>" alt="" id="url_product_img" class="w-60 h-32 mt-5" />
+    </div>
+    <!-- key -->
+    <div class="mb-6">
+      <!-- Input for keywords -->
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        for="product_tag"
+        >Tag sản phẩm:</label
+      >
+      <textarea
+        name="product_tag"
+        id="product_tag"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+      ><%=product.product_tags%>
+    </textarea>
     </div>
     <!-- des -->
     <div class="mb-6">
@@ -88,12 +105,40 @@
         name="product_des"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Mô tả sản phẩm"
-      ></textarea>
+      ><%=product.description%></textarea>
     </div>
   </form>
   </div>
 </div>
 <script>
+  var input = document.querySelector("#product_tag");
+  var product_tag = new Tagify(input);
+  // Bắt sự kiện thêm thẻ
+  product_tag.on('add', function(e) {
+    if (firstLoad) return;
+    const tagName = e.detail.data.value;
+    fetch('/admin/product/tagAdd', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId: "<%= product.id %>", tagName: tagName }),
+    });
+  });
+  // Bắt sự kiện xóa thẻ
+  product_tag.on('remove', function(e) {
+    if (firstLoad) return;
+    const tagName = e.detail.data.value;
+    fetch('/admin/product/tagDel', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId: "<%= product.id %>", tagName: tagName }),
+    });
+  });
+
+
   new FroalaEditor("#editor", {
     imageUploadURL: "/upload",
     heightMin: 500, // Set minimum height

@@ -28,7 +28,7 @@ exports.editPost = async (req, res) => {
   try {
     const post = await postService.findPostById(+req.params.id);
     if (!post) {
-      throw new Error("Khôn tồn tại bài viết!");
+      throw new Error("Không tồn tại bài viết!");
     }
     res.render("admin/postEdit", { url: "post", post });
   } catch (error) {

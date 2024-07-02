@@ -25,6 +25,9 @@ admin_router.post("/post/update/:id", authJWT, postController.updatePost);
 //product
 admin_router.get("/product", authJWT, productController.productIndex);
 admin_router.get("/product/new", authJWT, productController.productNew);
-admin_router.post("/product/new", authJWT, productController.productNew);
+admin_router.get("/product/edit/:id", authJWT, productController.productEdit);
+//product_tag
+admin_router.post("/product/tagAdd", authJWT, productController.productAddTag);
+admin_router.post("/product/tagDel", authJWT, productController.productDelTag);
 
 module.exports = admin_router;
