@@ -12,6 +12,16 @@ exports.productFindId = async (id) => {
           tags: true,
         },
       },
+      product_toppings: {
+        include: {
+          toppings: true,
+        },
+      },
+      product_sizes: {
+        include: {
+          sizes: true,
+        },
+      },
     },
   });
   return product;
@@ -38,6 +48,56 @@ exports.createProduct = async (data) => {
       price: +data.product_price,
       image_url: data.product_img,
       description: data.product_des,
+      properties: `
+      <table id="doc-pro-heard" style="width: 100%;">
+	<tbody>
+		<tr>
+			<td style="width: 25.0000%;">
+				<div id="isPasted" style="text-align: center;"><strong><span style="font-size: 18px;">120</span></strong></div>
+				<div style="text-align: center;">Calorise</div>
+			</td>
+			<td style="width: 25.0000%;">
+				<div id="isPasted" style="text-align: center;"><strong><span style="font-size: 18px;">0</span></strong></div>
+				<div style="text-align: center;">Fat</div>
+			</td>
+			<td style="width: 25.0000%;">
+				<div style="text-align: center;"><strong><span style="font-size: 18px;">36g</span></strong></div>
+				<div style="text-align: center;"><span style="white-space:pre-wrap;">Carbs</span></div>
+			</td>
+			<td style="width: 25.0000%;">
+				<div id="isPasted" style="text-align: center;"><strong><span style="font-size: 18px;">&lt;1g</span></strong></div>
+				<div style="text-align: center;"><span style="white-space:pre-wrap;">Protein</span></div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table id="doc-pro-body" style="width: 100%;">
+	<tbody>
+		<tr>
+			<td style="width: 25%; text-align: center;"><span style="white-space:pre-wrap;">Saturated fat</span></td>
+			<td style="width: 25%; text-align: center;">0g</td>
+			<td style="width: 25.0000%;">
+				<div data-empty="true" style="text-align: center;">0g</div>
+			</td>
+			<td style="width: 25%; text-align: center;">0g</td>
+		</tr>
+		<tr>
+			<td style="width: 25%; text-align: center;"><span style="white-space:pre-wrap;">Cholesterol</span></td>
+			<td style="width: 25%; text-align: center;"><span style="white-space:pre-wrap;">0mg&nbsp;</span></td>
+			<td style="width: 25.0000%;">
+				<div data-empty="true" style="text-align: center;">10g</div>
+			</td>
+			<td style="width: 25%; text-align: center;">10g</td>
+		</tr>
+		<tr>
+			<td style="width: 25%; text-align: center;"><span style="white-space:pre-wrap;">Almost</span></td>
+			<td style="width: 25%; text-align: center;">1g</td>
+			<td style="width: 25%; text-align: center;">0g</td>
+			<td style="width: 25%; text-align: center;">100g</td>
+		</tr>
+	</tbody>
+</table>
+      `,
     },
   });
   return product;

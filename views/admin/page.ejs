@@ -1,0 +1,90 @@
+<%- include('../partials/admin-header.ejs') %>
+<div class="p-4 sm:ml-64">
+  <div
+    class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14"
+  ></div>
+  <div
+    class="max-full p-5 mt-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+  >
+    <div class="grid grid-cols-2 gap-4">
+      <% page.contents.forEach(element => { %> <% if (element.type == "img") {
+      %>
+      <div class="mb-6">
+        <label
+          class="block mb-2 text-lg font-bold text-gray-900 dark:text-white"
+          ><%= element.name %></label
+        >
+        <img src="<%= element.content %>" class="w-32 mb-3" />
+        <input
+          class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          id="upload_post_img"
+          type="file"
+          accept="image/*"
+        />
+      </div>
+      <% } %> <% if (element.type == "text") { %>
+      <div class="mb-6">
+        <label
+          class="block mb-2 text-lg font-bold text-gray-900 dark:text-white"
+          ><%= element.name %></label
+        >
+        <input
+          type="text"
+          id-field="<%= element.id %>"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          value="<%= element.content %>"
+        />
+      </div>
+      <% } %> <% if (element.type == "html") { %>
+      <div class="mb-6">
+        <label
+          class="block mb-2 text-lg font-bold text-gray-900 dark:text-white"
+          ><%= element.name %></label
+        >
+        <textarea
+          id-field="<%= element.id %>"
+          class="editor bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+                 <%= element.content %>
+       </textarea
+        >
+      </div>
+      <% } %> <% }) %>
+    </div>
+  </div>
+</div>
+<script>
+  async function handleBlurText(event) {
+    const id = event.target.getAttribute("id-field");
+    const value = event.target.value;
+    const data = {
+      id,
+      value,
+    };
+    const response = await fetch("/admin/page/update/text", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  }
+
+  document.querySelectorAll(".editor").forEach((editorElement) => {
+    new FroalaEditor(editorElement, {
+      events: {
+        blur: function () {
+          const content = this.html.get();
+          editorElement.value = content; // Set content to a value property to use it in handleBlurText
+          handleBlurText({ target: editorElement });
+        },
+      },
+    });
+  });
+
+  const inputsText = document.querySelectorAll('input[type="text"], textarea');
+  inputsText.forEach((input) => {
+    input.addEventListener("blur", handleBlurText);
+  });
+</script>
+<%- include('../partials/admin-footer.ejs') %>

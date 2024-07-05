@@ -13,8 +13,20 @@ exports.productNew = async (req, res) => {
 exports.productEdit = async (req, res) => {
   try {
     const product = await productSevice.productFindId(+req.params.id);
-    const tagNames = product.product_tags.map((pt) => pt.tags.name);
-    product.product_tags = tagNames.toString();
+    const tags = product.product_tags.map((pt) => pt.tags.name);
+    product.product_tags = tags.toString();
+    const topings = product.product_toppings.map((pt) => ({
+      id: pt.toppings.id,
+      name: pt.toppings.name,
+      additional_price: pt.toppings.additional_price,
+    }));
+    product.product_toppings = topings;
+    const sizes = product.product_sizes.map((pt) => ({
+      id: pt.sizes.id,
+      name: pt.sizes.name,
+      additional_price: pt.sizes.additional_price,
+    }));
+    product.product_sizes = sizes;
     res.render("admin/productEdit", { url: "product", product });
   } catch (error) {
     console.error(error);

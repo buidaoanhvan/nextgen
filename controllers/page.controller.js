@@ -78,6 +78,25 @@ exports.contactPage = async (req, res) => {
   res.render("web/contact", { setting, contents });
 };
 
+exports.postPage = async (req, res) => {
+  const setting = await getSettings();
+  const data = await prisma.pages.findFirst({
+    where: {
+      id: 3,
+    },
+    include: {
+      contents: true,
+    },
+  });
+  const contents = data.contents.reduce((acc, content) => {
+    acc[content.code] = content.content;
+    return acc;
+  }, {});
+  const posts = await prisma.posts.findMany();
+  console.log(posts);
+  res.render("web/blog", { setting, contents, posts});
+};
+
 exports.postPageDetail = async (req, res) => {
   const setting = await getSettings();
   const post = await prisma.posts.findFirst({

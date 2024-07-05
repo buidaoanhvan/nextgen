@@ -1,0 +1,36 @@
+<%- include('../partials/web-header.ejs') %>
+<div class="container mx-auto max-w-[1770px]">
+  <img src="<%= contents.POLICY_BANNER_1 %>" alt="" srcset="" class="" />
+</div>
+<div class="max-w-6xl mx-auto my-24 px-4">
+  <h1>Danh sách bài viết</h1>
+  <p>Almost before</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+    <% posts.forEach(element => { %>
+    <a
+      href="/bai-viet/<%= element.slug%>"
+      class="flex flex-col items-center bg-white rounded-xl hover:bg-gray-100"
+      style="box-shadow: 0px 4px 12px 0px #00000014"
+    >
+      <img
+        class="object-cover w-full rounded-xl h-72"
+        src="<%=element.img%>"
+        alt=""
+      />
+      <div class="flex flex-col justify-between p-4 leading-normal">
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
+          Noteworthy technology acquisitions 2021
+        </h5>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Here are the biggest enterprise technology acquisitions of 2021 so
+          far, in reverse chronological order.
+        </p>
+      </div>
+    </a>
+
+    <% }) %>
+  </div>
+</div>
+<%- include('../partials/web-footer.ejs') %>

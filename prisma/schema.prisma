@@ -129,6 +129,7 @@ model products {
   name             String?            @db.VarChar(255)
   slug             String?            @db.VarChar(255)
   description      String?            @db.Text
+  properties       String?            @db.Text
   price            Int?
   image_url        String?            @db.VarChar(255)
   product_images   product_images[]
