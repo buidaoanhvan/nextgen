@@ -34,32 +34,10 @@
         <div id="menu-doc" class="flex flex-col p-4"></div>
       </div>
       <div class="fr-view p-5" id="main-doc"><%- post.content %></div>
-
-      <div id="doc-pro"><%- post.content %></div>
     </div>
     <div>Quảng cáo</div>
   </div>
 </div>
-<style>
-  #doc-pro {
-    padding: 10px 20px;
-    box-shadow: 0px 4px 12px 0px #00000014;
-    border-radius: 18px;
-  }
-  #doc-pro #doc-pro-heard {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  #doc-pro #doc-pro-body {
-    background-color: #F3F6F3;
-    border-radius: 18px;
-    box-shadow: 0px 4px 12px 0px #00000014;
-    margin: 0px 0px 10px 0px;
-  }
-  #doc-pro #doc-pro-body td{
-    padding: 5px;
-  }
-</style>
 <script>
   const main = document.getElementById("main-doc");
   const lis = main.querySelectorAll("li");
@@ -67,7 +45,6 @@
   lis.forEach((li, index) => {
     if (li.querySelector("ol")) {
       let clone = li.cloneNode(true);
-      console.log(clone);
       clone.querySelectorAll("ol").forEach((child) => child.remove());
       li.setAttribute("id", `item-${index}`);
       menu.push({

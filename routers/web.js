@@ -9,5 +9,8 @@ web_router.get("/chinh-sach", pageController.policyPage);
 web_router.get("/lien-he", pageController.contactPage);
 web_router.get("/bai-viet", pageController.postPage);
 web_router.get("/bai-viet/:slug", pageController.postPageDetail);
+web_router.get("/san-pham", pageController.productPage);
+web_router.get("/san-pham/:slug", pageController.productPageDetail);
+web_router.get("/gio-hang", pageController.cartPage);
 
 module.exports = web_router;

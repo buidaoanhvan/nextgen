@@ -2,7 +2,6 @@ const pageSevice = require("../../services/page.service");
 
 exports.getPage = async (req, res) => {
   const page = await pageSevice.getPage({ slug: req.params.slug });
-  console.log(page);
   res.render("admin/page", { page });
 };
 

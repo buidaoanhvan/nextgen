@@ -1,4 +1,30 @@
-console.log("chay");
+console.log("JS Runing");
+
+window.onload = function () {
+  loadCart();
+};
+
+let cart = [];
+
+// Hàm lưu giỏ hàng vào localStorage
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// Hàm tải giỏ hàng từ localStorage
+function loadCart() {
+  const cartData = localStorage.getItem("cart");
+  if (cartData) {
+    cart = JSON.parse(cartData);
+  }
+}
+
+// Hàm thêm sản phẩm vào giỏ hàng
+function addToCart(product) {
+  cart.push(product);
+  saveCart(); // Lưu giỏ hàng sau khi thêm sản phẩm
+}
+
 document.querySelectorAll(".accordion-header").forEach((button) => {
   button.addEventListener("click", () => {
     const accordionItem = button.parentElement;
@@ -162,3 +188,13 @@ function generateSlug(text) {
     .replace(/\s+/g, "-") // Replace spaces with -
     .replace(/-+/g, "-"); // Replace multiple - with single -
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const moneyElements = document.querySelectorAll(".money");
+  moneyElements.forEach((element) => {
+    const value = parseInt(element.getAttribute("data-value")).toLocaleString(
+      "en-US"
+    );
+    element.textContent = value;
+  });
+});

@@ -45,4 +45,9 @@ admin_router.post("/toping/:id", authJWT, topingController.topingCreate);
 //size
 admin_router.post("/size/:id", authJWT, sizeController.sizeCreate);
 
+//category
+admin_router.get("/category", authJWT, productController.categoryIndex);
+admin_router.post("/category", authJWT, productController.categoryCreate);
+admin_router.post("/category/edit", authJWT, productController.categoryEdit);
+
 module.exports = admin_router;

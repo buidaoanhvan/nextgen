@@ -39,7 +39,6 @@ exports.editPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
-    console.log(req.body);
     const post = await postService.updatePost(
       req.body,
       req.user,

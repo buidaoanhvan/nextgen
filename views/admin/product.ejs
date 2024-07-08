@@ -30,8 +30,10 @@
           </h5>
         </a>
         <div class="flex items-center justify-between">
-          <span class="text-2xl font-bold text-gray-900 dark:text-white"
-            ><%= element.price %>đ</span
+          <span class="text-2xl font-bold text-gray-900 dark:text-white">
+            <span data-value="<%= element.price %>" class="money"
+              ><%= element.price %></span
+            >đ</span
           >
           <a
             href="/admin/product/edit/<%= element.id %>"
@@ -43,5 +45,5 @@
     </div>
     <% }) %>
   </div>
-  <%- include('../partials/admin-footer.ejs') %>
 </div>
+<%- include('../partials/admin-footer.ejs') %>

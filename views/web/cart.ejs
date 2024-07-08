@@ -1,0 +1,131 @@
+<%- include('../partials/web-header.ejs') %>
+<div class="max-w-[1000px] mx-auto my-10">
+  <h1 class="mb-5 text-2xl">Giỏ hàng của bạn</h1>
+  <div id="cart-ul"></div>
+</div>
+<script>
+  // Hàm tải giỏ hàng từ localStorage
+  function loadCart() {
+    const cartData = localStorage.getItem("cart");
+    if (cartData) {
+      carts = JSON.parse(cartData);
+    }
+  }
+  loadCart();
+
+  const cartDiv = document.getElementById("cart-ul");
+  cartDiv.innerHTML = ""; // Xóa hiển thị giỏ hàng cũ
+
+  carts.forEach((element) => {
+    console.log(element);
+    const cartItem = document.createElement("div");
+    cartItem.innerHTML = `
+     <div class="grid grid-cols-4 gap-5 mb-4">
+      <div>
+        <img src="/uploads/file-1720166759494.png" class="w-52" />
+      </div>
+      <div class="flex flex-col col-span-2">
+        <h1 class="text-2xl mb-3">Almost before…</h1>
+        <div class="mb-3">
+          <h2 for="" class="font-bold">Size</h2>
+          <div class="flex items-center me-4">
+            <input
+              type="checkbox"
+              value=""
+              class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576] toping"
+            />
+            <label
+              for=""
+              class="ms-2 font-medium text-gray-900 dark:text-gray-300"
+              >abc</label
+            >
+          </div>
+        </div>
+        <div class="mb-3">
+          <h2 for="" class="font-bold">Toping</h2>
+          <div class="flex items-center me-4">
+            <input
+              type="checkbox"
+              value=""
+              class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576] toping"
+            />
+            <label
+              for=""
+              class="ms-2 font-medium text-gray-900 dark:text-gray-300"
+              >abc</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-end justify-end">
+        <div class="mb-3 mx-3">
+        <div class="relative flex items-center max-w-[8rem]">
+          <button
+            type="button"
+            id="decrement-button"
+            class="bg-gray-100 border border-gray-300 rounded-s-lg p-2"
+          >
+            <svg
+              class="w-3 h-3 text-gray-900 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 18 2"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h16"
+              />
+            </svg>
+          </button>
+          <input
+            type="text"
+            id="quantity-input"
+            class="bg-gray-50 border-x-0 border-gray-300 text-center text-gray-900 text-sm block w-full p-1"
+            placeholder="1"
+            value="1"
+            required
+          />
+          <button
+            type="button"
+            id="increment-button"
+            class="bg-gray-100 border border-gray-300 rounded-e-lg p-2"
+          >
+            <svg
+              class="w-3 h-3 text-gray-900 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 18 18"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 1v16M1 9h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+        <div class="mb-3 mx-3">
+          <div class="flex">
+            <h2
+              data-value="10000"
+              id="total"
+              class="money mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            ></h2>
+            <span class="text-sm font-normal ml-2 text-[#F07167]">vnd</span>
+          </div>
+        </div>
+      </div>
+    </div>
+        `;
+    cartDiv.appendChild(cartItem);
+  });
+</script>
+<%- include('../partials/web-footer.ejs') %>

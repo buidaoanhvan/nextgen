@@ -7,7 +7,6 @@ exports.sizeCreate = async (req, res) => {
       product_id: req.params.id,
       size_id: size.id,
     });
-    console.log(product_sizes);
     res.status(200).redirect("/admin/product/edit/" + req.params.id);
   } catch (error) {
     console.log(error);

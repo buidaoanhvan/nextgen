@@ -16,8 +16,8 @@ model contents {
   position   Int?
   content    String?  @db.LongText
   meta       String?  @db.LongText
-  created_at DateTime @default(now()) @db.Timestamp(0)
-  updated_at DateTime @default(now()) @db.Timestamp(0)
+  created_at DateTime @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updated_at DateTime @default(dbgenerated("(now())")) @db.Timestamp(0)
   pages      pages?   @relation(fields: [page_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "elements_ibfk_1")
 
   @@index([page_id], map: "page_id")
@@ -49,7 +49,7 @@ model orders {
   address        String?  @db.VarChar(255)
   phone          String?  @db.VarChar(255)
   status         Int?     @default(0)
-  order_date     DateTime @default(now()) @db.Timestamp(0)
+  order_date     DateTime @default(dbgenerated("(now())")) @db.Timestamp(0)
   voucher_code   String?  @db.VarChar(255)
   discount_price Int?
   total_price    Int?
@@ -63,22 +63,22 @@ model pages {
   title      String?    @db.VarChar(255)
   slug       String?    @db.VarChar(255)
   meta       String?    @db.LongText
-  created_at DateTime   @default(now()) @db.Timestamp(0)
-  updated_at DateTime   @default(now()) @db.Timestamp(0)
+  created_at DateTime   @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updated_at DateTime   @default(dbgenerated("(now())")) @db.Timestamp(0)
   contents   contents[]
 }
 
 model posts {
   id         Int      @id @default(autoincrement())
   title      String?  @db.VarChar(255)
-  img        String?  @db.VarChar(255)
   slug       String?  @db.VarChar(255)
   content    String?  @db.Text
   author_id  Int?
   status     String?  @default("draft") @db.VarChar(50)
   meta       String?  @db.LongText
-  created_at DateTime @default(now()) @db.Timestamp(0)
-  updated_at DateTime @default(now()) @db.Timestamp(0)
+  created_at DateTime @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updated_at DateTime @default(dbgenerated("(now())")) @db.Timestamp(0)
+  img        String?  @db.VarChar(255)
   users      users?   @relation(fields: [author_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "posts_ibfk_1")
 
   @@index([author_id], map: "author_id")
@@ -88,7 +88,7 @@ model product_images {
   id         Int       @id @default(autoincrement())
   product_id Int?
   image_url  String    @db.VarChar(255)
-  added_at   DateTime  @default(now()) @db.Timestamp(0)
+  added_at   DateTime  @default(dbgenerated("(now())")) @db.Timestamp(0)
   products   products? @relation(fields: [product_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "product_images_ibfk_1")
 
   @@index([product_id], map: "product_id")
@@ -126,17 +126,21 @@ model product_toppings {
 
 model products {
   id               Int                @id @default(autoincrement())
+  category_id      Int?
   name             String?            @db.VarChar(255)
-  slug             String?            @db.VarChar(255)
   description      String?            @db.Text
-  properties       String?            @db.Text
   price            Int?
   image_url        String?            @db.VarChar(255)
+  slug             String?            @db.VarChar(255)
+  properties       String?            @db.Text
   product_images   product_images[]
   product_sizes    product_sizes[]
   product_tags     product_tags[]
   product_toppings product_toppings[]
+  categories       categories?        @relation(fields: [category_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "categories_ibfk_1")
   user_favorites   user_favorites[]
+
+  @@index([category_id], map: "categories_ibfk_1")
 }
 
 model settings {
@@ -145,8 +149,8 @@ model settings {
   name       String?  @db.Text
   value      String?  @db.Text
   type       String?  @db.VarChar(50)
-  created_at DateTime @default(now()) @db.Timestamp(0)
-  updated_at DateTime @default(now()) @db.Timestamp(0)
+  created_at DateTime @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updated_at DateTime @default(dbgenerated("(now())")) @db.Timestamp(0)
 }
 
 model sizes {
@@ -174,7 +178,7 @@ model user_favorites {
   id         Int       @id @default(autoincrement())
   user_id    Int?
   product_id Int?
-  added_at   DateTime  @default(now()) @db.Timestamp(0)
+  added_at   DateTime  @default(dbgenerated("(now())")) @db.Timestamp(0)
   users      users?    @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "user_favorites_ibfk_1")
   products   products? @relation(fields: [product_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "user_favorites_ibfk_2")
 
@@ -192,8 +196,8 @@ model users {
   password       String?          @db.VarChar(255)
   status         Int?             @default(0)
   roles          String?          @db.LongText
-  created_at     DateTime         @default(now()) @db.Timestamp(0)
-  updated_at     DateTime         @default(now()) @db.Timestamp(0)
+  created_at     DateTime         @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updated_at     DateTime         @default(dbgenerated("(now())")) @db.Timestamp(0)
   posts          posts[]
   user_favorites user_favorites[]
   vouchers       vouchers[]
@@ -211,9 +215,15 @@ model vouchers {
   end_date       DateTime? @db.Date
   user_id        Int?
   status         Int?      @default(0)
-  created_at     DateTime  @default(now()) @db.Timestamp(0)
-  updated_at     DateTime  @default(now()) @db.Timestamp(0)
+  created_at     DateTime  @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updated_at     DateTime  @default(dbgenerated("(now())")) @db.Timestamp(0)
   users          users?    @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "vouchers_ibfk_1")
 
   @@index([user_id], map: "user_id")
+}
+
+model categories {
+  id       Int        @id @default(autoincrement())
+  name     String?    @db.VarChar(255)
+  products products[]
 }

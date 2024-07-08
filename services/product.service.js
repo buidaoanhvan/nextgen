@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { data } = require("autoprefixer");
 const prisma = new PrismaClient();
 
 exports.productFindId = async (id) => {
@@ -46,6 +47,7 @@ exports.createProduct = async (data) => {
       name: data.product_title,
       slug: data.product_link,
       price: +data.product_price,
+      category_id: +data.category,
       image_url: data.product_img,
       description: data.product_des,
       properties: `
@@ -150,4 +152,30 @@ exports.productDelTag = async (id, tag) => {
     },
   });
   return true;
+};
+
+exports.categoryAll = async () => {
+  const categories = prisma.categories.findMany();
+  return categories;
+};
+
+exports.categoryCreate = async (data) => {
+  const category = prisma.categories.create({
+    data: {
+      name: data.name,
+    },
+  });
+  return category;
+};
+
+exports.categoryEdit = async (data) => {
+  const category = await prisma.categories.update({
+    where: {
+      id: +data.id,
+    },
+    data: {
+      name: data.name,
+    },
+  });
+  return category;
 };
