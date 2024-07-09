@@ -1,14 +1,16 @@
 console.log("JS Runing");
 
-window.onload = function () {
-  loadCart();
-};
+document.getElementById("menu-btn").addEventListener("click", function () {
+  var menu = document.getElementById("menu-let");
+  menu.classList.toggle("hidden");
+});
 
 let cart = [];
 
 // Hàm lưu giỏ hàng vào localStorage
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
+  combineCartItems();
 }
 
 // Hàm tải giỏ hàng từ localStorage
@@ -17,6 +19,13 @@ function loadCart() {
   if (cartData) {
     cart = JSON.parse(cartData);
   }
+  updateCountCart();
+}
+loadCart();
+
+function updateCountCart() {
+  const countCart = document.getElementById("countCart");
+  countCart.innerText = cart.length;
 }
 
 // Hàm thêm sản phẩm vào giỏ hàng
@@ -198,3 +207,29 @@ document.addEventListener("DOMContentLoaded", function () {
     element.textContent = value;
   });
 });
+
+function combineCartItems() {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  let combinedCart = [];
+  // Create a temporary object to group items
+  let temp = {};
+  cart.forEach((item) => {
+    // Create a unique key for each combination of id, selectedSize, and selectedTopping
+    let key = `${item.id}-${item.selectedSize.id}-${JSON.stringify(
+      item.selectedTopping
+    )}`;
+    // If the key already exists, increment the quantity
+    if (temp[key]) {
+      temp[key].quantity += item.quantity;
+    } else {
+      // Otherwise, add the item to the temporary object
+      temp[key] = { ...item };
+    }
+  });
+  // Convert the temporary object back to an array
+  for (let key in temp) {
+    combinedCart.push(temp[key]);
+  }
+  localStorage.setItem("cart", JSON.stringify(combinedCart));
+  loadCart();
+}

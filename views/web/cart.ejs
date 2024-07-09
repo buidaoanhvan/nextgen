@@ -1,9 +1,50 @@
 <%- include('../partials/web-header.ejs') %>
 <div class="max-w-[1000px] mx-auto my-10">
-  <h1 class="mb-5 text-2xl">Giỏ hàng của bạn</h1>
-  <div id="cart-ul"></div>
+  <h1 class="mb-5 text-2xl border-b-2 pb-2">Giỏ hàng của bạn</h1>
+  <div id="cart-ul" class="overflow-y-auto h-[50vh]"></div>
+  <div class="my-5 border-b-2 pb-2"></div>
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="font-medium text-lg text-[#F07167]">TỔNG BILL</p>
+      <div class="flex">
+        <h2
+          class="money text-4xl font-bold text-[#415C3F]"
+          id="cart-total"
+        ></h2>
+        <span class="ml-2 text-[#F07167]">vnd</span>
+      </div>
+    </div>
+    <div>
+      <button
+        type="button"
+        class="flex items-center text-white bg-[#7A9576] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+      >
+        Thanh Toán Ngay
+        <svg
+          class="w-6 h-6 text-white ml-2"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 10h18M6 14h2m3 0h5M3 7v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
 </div>
 <script>
+  let carts = [];
+  let totalCart = 0;
+
   // Hàm tải giỏ hàng từ localStorage
   function loadCart() {
     const cartData = localStorage.getItem("cart");
@@ -11,121 +52,170 @@
       carts = JSON.parse(cartData);
     }
   }
-  loadCart();
 
-  const cartDiv = document.getElementById("cart-ul");
-  cartDiv.innerHTML = ""; // Xóa hiển thị giỏ hàng cũ
-
-  carts.forEach((element) => {
-    console.log(element);
-    const cartItem = document.createElement("div");
-    cartItem.innerHTML = `
-     <div class="grid grid-cols-4 gap-5 mb-4">
-      <div>
-        <img src="/uploads/file-1720166759494.png" class="w-52" />
-      </div>
-      <div class="flex flex-col col-span-2">
-        <h1 class="text-2xl mb-3">Almost before…</h1>
-        <div class="mb-3">
-          <h2 for="" class="font-bold">Size</h2>
-          <div class="flex items-center me-4">
-            <input
-              type="checkbox"
-              value=""
-              class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576] toping"
-            />
-            <label
-              for=""
-              class="ms-2 font-medium text-gray-900 dark:text-gray-300"
-              >abc</label
-            >
-          </div>
-        </div>
-        <div class="mb-3">
-          <h2 for="" class="font-bold">Toping</h2>
-          <div class="flex items-center me-4">
-            <input
-              type="checkbox"
-              value=""
-              class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576] toping"
-            />
-            <label
-              for=""
-              class="ms-2 font-medium text-gray-900 dark:text-gray-300"
-              >abc</label
-            >
-          </div>
-        </div>
-      </div>
-      <div class="flex flex-col items-end justify-end">
-        <div class="mb-3 mx-3">
-        <div class="relative flex items-center max-w-[8rem]">
-          <button
-            type="button"
-            id="decrement-button"
-            class="bg-gray-100 border border-gray-300 rounded-s-lg p-2"
-          >
-            <svg
-              class="w-3 h-3 text-gray-900 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 18 2"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h16"
+  function updateCart() {
+    loadCart();
+    const cartDiv = document.getElementById("cart-ul");
+    cartDiv.innerHTML = ""; // Xóa hiển thị giỏ hàng cũ
+    carts.forEach((element, index) => {
+      console.log(element);
+      const cartItem = document.createElement("div");
+      let topingItem = ``;
+      let topingPrice = 0;
+      element.selectedTopping.forEach((toping) => {
+        topingPrice += toping.additional_price;
+        topingItem += `<div class="flex items-center me-4">
+              <input
+                type="checkbox"
+                value=""
+                checked
+                disabled
+                class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576] toping"
               />
-            </svg>
-          </button>
-          <input
-            type="text"
-            id="quantity-input"
-            class="bg-gray-50 border-x-0 border-gray-300 text-center text-gray-900 text-sm block w-full p-1"
-            placeholder="1"
-            value="1"
-            required
-          />
-          <button
-            type="button"
-            id="increment-button"
-            class="bg-gray-100 border border-gray-300 rounded-e-lg p-2"
-          >
-            <svg
-              class="w-3 h-3 text-gray-900 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 18 18"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 1v16M1 9h16"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-        <div class="mb-3 mx-3">
+              <label
+                for=""
+                class="ms-2 font-medium text-gray-900 dark:text-gray-300"
+                >${toping.name}</label
+              >
+            </div>`;
+      });
+      let productTotal =
+        (element.price + element.selectedSize.additional_price + topingPrice) *
+        element.quantity;
+      cartItem.innerHTML = `
+        <div class="grid grid-cols-4 gap-5 mb-4 border-b border-dashed pb-2">
           <div class="flex">
-            <h2
-              data-value="10000"
-              id="total"
-              class="money mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-            ></h2>
-            <span class="text-sm font-normal ml-2 text-[#F07167]">vnd</span>
+            <img src="${element.img}" class="w-52" />
+          </div>
+          <div class="flex flex-col col-span-2">
+            <h1 class="text-2xl mb-3">${element.name}</h1>
+            <div class="mb-3">
+              <h2 for="" class="font-bold">Size</h2>
+              <div class="flex items-center me-4">
+                <input
+                  type="checkbox"
+                  value=""
+                  checked
+                  disabled
+                  class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576] toping"
+                />
+                <label for="" class="ms-2 font-medium text-gray-900 dark:text-gray-300"
+                  >${element.selectedSize.name}</label
+                >
+              </div>
+            </div>
+            <div class="mb-3">
+              <h2 for="" class="font-bold">Toping</h2>
+              <div class="flex">${topingItem}</div>
+            </div>
+          </div>
+          <div class="flex flex-col items-end justify-between">
+            <button
+              type="button"
+              data-index="${index}"
+              class="cartDelItem text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              <svg
+                class="w-3 h-3"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 14"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                />
+              </svg>
+            </button>
+            <div>
+              <div class="mb-3 mx-3">
+                <div class="relative flex items-center max-w-[8rem]">
+                  <button
+                    type="button"
+                    id="decrement-button"
+                    class="bg-gray-100 border border-gray-300 rounded-s-lg p-2"
+                  >
+                    <svg
+                      class="w-3 h-3 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 2"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 1h16"
+                      />
+                    </svg>
+                  </button>
+                  <input
+                    type="text"
+                    id="quantity-input"
+                    class="bg-gray-50 border-x-0 border-gray-300 text-center text-gray-900 text-sm block w-full p-1"
+                    placeholder="1"
+                    value="${element.quantity}"
+                    required
+                  />
+                  <button
+                    type="button"
+                    id="increment-button"
+                    class="bg-gray-100 border border-gray-300 rounded-e-lg p-2"
+                  >
+                    <svg
+                      class="w-3 h-3 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3 mx-3">
+                <div class="flex">
+                  <h2
+                    data-value="${productTotal}"
+                    id="total"
+                    class="money mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                  ></h2>
+                  <span class="text-sm font-normal ml-2 text-[#F07167]">vnd</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-        `;
-    cartDiv.appendChild(cartItem);
+      `;
+      cartDiv.appendChild(cartItem);
+      totalCart += productTotal;
+    });
+
+    const cartTotal = document.getElementById("cart-total");
+    cartTotal.setAttribute("data-value", totalCart.toString());
+  }
+  updateCart();
+
+  document.querySelectorAll(".cartDelItem").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const index = event.target.getAttribute("data-index");
+      carts.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(carts));
+      location.reload();
+    });
   });
 </script>
 <%- include('../partials/web-footer.ejs') %>

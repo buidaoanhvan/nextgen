@@ -5,6 +5,7 @@
       <div>
         <img src="<%- product.image_url %>" />
       </div>
+      <div class="fr-view p-5"><%- product.description %></div>
     </div>
     <div class="col-span-5">
       <div class="mb-3">
@@ -27,7 +28,10 @@
             <label
               for="size_<%- element.id %>"
               class="ms-2 font-medium text-gray-900 dark:text-gray-300"
-              ><%- element.name %> <span class="text-[12px] text-[#F07167]">+<%- element.additional_price %>đ</span></label
+              ><%- element.name %>
+              <span class="text-[12px] text-[#F07167]"
+                >+<%- element.additional_price %>đ</span
+              ></label
             >
           </div>
           <% }) %>
@@ -48,7 +52,10 @@
             <label
               for="top_<%- element.id %>"
               class="ms-2 font-medium text-gray-900 dark:text-gray-300"
-              ><%- element.name %> <span class="text-[12px] text-[#F07167]">+<%- element.additional_price %>đ</span></label
+              ><%- element.name %>
+              <span class="text-[12px] text-[#F07167]"
+                >+<%- element.additional_price %>đ</span
+              ></label
             >
           </div>
           <% }) %>
@@ -268,6 +275,7 @@
           return
         }
         addToCart(product);
+        updateCountCart()
     });
   });
 </script>
