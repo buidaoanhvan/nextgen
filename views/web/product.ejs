@@ -1,0 +1,102 @@
+<%- include('../partials/web-header.ejs') %>
+<div class="container mx-auto max-w-[1770px]">
+  <img src="<%= contents.POLICY_BANNER_1 %>" alt="" srcset="" class="" />
+</div>
+<div class="container mx-auto my-20 p-4">
+  <div class="grid grid-cols-12 gap-6">
+    <div class="col-span-12 lg:col-span-3">
+      <div class="rounded-xl text-[#111812] mb-10 w-full shadow">
+        <h1 class="text-lg bg-[#E4EAE1] p-3 rounded-t-xl text-[#2C4E3B]">
+          MỤC LỤC SẢN PHẨM
+        </h1>
+        <div class="flex flex-col">
+          <a class="py-2 px-4 hover:bg-[#E4EAE1]">Tất cả sản phẩm</a>
+          <% categories.forEach(element => { %>
+          <a class="py-2 px-4 hover:bg-[#E4EAE1]"><%- element.name%></a>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-12 lg:col-span-9">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <% products.forEach(element => { %>
+        <a
+          href="/san-pham/<%- element.slug%>"
+          class="block bg-white rounded-lg shadow"
+        >
+          <div class="p-1">
+            <img src="<%- element.image_url%>" class="h-28 w-full md:h-52" />
+          </div>
+          <div class="px-6 pt-6">
+            <h5
+              class="mb-1 text-xl md:text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+              <%- element.name%>
+            </h5>
+            <p
+              class="mb-1 font-normal text-gray-700 dark:text-gray-400 text-center hidden lg:block"
+            >
+              Here are the biggest enterprise technology acquisitions.
+            </p>
+            <p class="text-[#415C3F]">Giá</p>
+            <div class="flex justify-between">
+              <div class="flex">
+                <h5
+                  data-value="<%- element.price%>"
+                  class="money mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                >
+                  <%- element.price%>
+                </h5>
+                <span class="text-sm font-normal ml-2 text-[#F07167]">vnd</span>
+              </div>
+              <svg
+                class="w-6 h-6 text-[#7A9576]"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                />
+              </svg>
+            </div>
+            <div class="flex justify-center pt-3 pb-3">
+              <button
+                type="button"
+                class="flex text-white bg-[#7A9576] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              >
+                <span class="hidden md:block">Thêm giỏ hàng</span>
+                <svg
+                  class="w-6 h-6 text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../partials/web-footer.ejs') %>

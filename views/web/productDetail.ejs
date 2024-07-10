@@ -1,0 +1,282 @@
+<%- include('../partials/web-header.ejs') %>
+<div class="container mx-auto my-20 px-3">
+  <div class="grid grid-cols-12 gap-14">
+    <div class="col-span-7">
+      <div>
+        <img src="<%- product.image_url %>" />
+      </div>
+      <div class="fr-view p-5"><%- product.description %></div>
+    </div>
+    <div class="col-span-5">
+      <div class="mb-3">
+        <h1 class="text-2xl"><%- product.name %></h1>
+      </div>
+      <div id="doc-pro" class="mb-6"><%- product.properties %></div>
+      <!-- size -->
+      <div class="mb-3 mx-3">
+        <label class="font-bold text-xl">Size</label>
+        <div class="grid grid-cols-2 mt-3">
+          <% product.product_sizes.forEach(element=> { %>
+          <div class="flex items-center me-4">
+            <input
+              id="size_<%- element.id %>"
+              type="radio"
+              name="size"
+              value="<%= JSON.stringify(element) %>"
+              class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576]"
+            />
+            <label
+              for="size_<%- element.id %>"
+              class="ms-2 font-medium text-gray-900 dark:text-gray-300"
+              ><%- element.name %>
+              <span class="text-[12px] text-[#F07167]"
+                >+<%- element.additional_price %>đ</span
+              ></label
+            >
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <!-- toping -->
+      <div class="mb-3 mx-3">
+        <label class="font-bold text-xl">Toping</label>
+        <div class="grid grid-cols-2 mt-3">
+          <% product.product_toppings.forEach(element=> { %>
+          <div class="flex items-center me-4">
+            <input
+              id="top_<%- element.id %>"
+              type="checkbox"
+              value="<%= JSON.stringify(element) %>"
+              class="w-5 h-5 text-[#7A9576] border-[#7A9576] rounded focus:ring-[#7A9576] toping"
+            />
+            <label
+              for="top_<%- element.id %>"
+              class="ms-2 font-medium text-gray-900 dark:text-gray-300"
+              ><%- element.name %>
+              <span class="text-[12px] text-[#F07167]"
+                >+<%- element.additional_price %>đ</span
+              ></label
+            >
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <!-- quantity -->
+      <div class="mb-3 mx-3">
+        <div class="relative flex items-center max-w-[8rem]">
+          <button
+            type="button"
+            id="decrement-button"
+            class="bg-gray-100 border border-gray-300 rounded-s-lg p-2"
+          >
+            <svg
+              class="w-3 h-3 text-gray-900 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 18 2"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h16"
+              />
+            </svg>
+          </button>
+          <input
+            type="text"
+            id="quantity-input"
+            class="bg-gray-50 border-x-0 border-gray-300 text-center text-gray-900 text-sm block w-full p-1"
+            placeholder="1"
+            value="1"
+            required
+          />
+          <button
+            type="button"
+            id="increment-button"
+            class="bg-gray-100 border border-gray-300 rounded-e-lg p-2"
+          >
+            <svg
+              class="w-3 h-3 text-gray-900 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 18 18"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 1v16M1 9h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- price -->
+      <div class="mb-3 mx-3">
+        <p class="text-[#415C3F]">Giá</p>
+        <div class="flex">
+          <h2
+            data-value="<%- product.price%>"
+            id="total"
+            class="money mb-1 text-4xl font-bold tracking-tight text-gray-900 dark:text-white"
+          ></h2>
+          <span class="text-sm font-normal ml-2 text-[#F07167]">vnd</span>
+        </div>
+      </div>
+      <button
+        type="button"
+        id="addCart"
+        class="flex text-white bg-[#7A9576] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Thêm vào giỏ hàng
+        <svg
+          class="w-6 h-6 text-white"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+<style>
+  #doc-pro {
+    padding: 10px 20px;
+    box-shadow: 0px 4px 12px 0px #00000014;
+    border-radius: 18px;
+  }
+
+  #doc-pro #doc-pro-heard {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #doc-pro #doc-pro-body {
+    background-color: #f3f6f3;
+    border-radius: 18px;
+    box-shadow: 0px 4px 12px 0px #00000014;
+    margin: 0px 0px 10px 0px;
+  }
+
+  #doc-pro #doc-pro-body td {
+    padding: 5px;
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let currentValue = 1;
+    let selectedSize;
+    let selectedTopping;
+    const product = {
+      id: <%= product.id %>,
+      name: "<%= product.name %>",
+      price: <%= product.price %>,
+      img: "<%= product.image_url %>",
+    }
+    const pricePerUnit = <%= product.price %>;
+    const sizeRadios = document.getElementsByName("size");
+    const toppingCheckboxes = document.querySelectorAll(".toping");
+    const quantityInput = document.getElementById("quantity-input");
+    const decrementButton = document.getElementById("decrement-button");
+    const incrementButton = document.getElementById("increment-button");
+    const total = document.getElementById("total");
+
+    function calculateToppingPrice() {
+      selectedTopping = [];
+      let toppingPrice = 0;
+      toppingCheckboxes.forEach(function (checkbox) {
+        if (checkbox.checked) {
+          toppingPrice += JSON.parse(checkbox.value).additional_price;
+          selectedTopping.push(JSON.parse(checkbox.value));
+        }
+      });
+      return toppingPrice;
+    }
+
+    function updateTotal() {
+      currentValue = parseInt(quantityInput.value) || 1;
+      if (currentValue < 1) {
+        currentValue = 1;
+        quantityInput.value = 1;
+      }
+
+      sizeRadios.forEach(function (radio) {
+        if (radio.checked) {
+          selectedSize = JSON.parse(radio.value);
+        }
+      });
+
+      let size_price = selectedSize?.additional_price
+        ? selectedSize.additional_price
+        : 0;
+      const toppingPrice = calculateToppingPrice();
+      const totalPrice =
+        (pricePerUnit + size_price + toppingPrice) * currentValue;
+      total.setAttribute("data-value", totalPrice);
+      total.textContent = totalPrice.toLocaleString();
+    }
+
+    decrementButton.addEventListener("click", function () {
+      if (currentValue > 1) {
+        currentValue -= 1;
+        quantityInput.value = currentValue;
+        updateTotal();
+      }
+    });
+
+    incrementButton.addEventListener("click", function () {
+      currentValue += 1;
+      quantityInput.value = currentValue;
+      updateTotal();
+    });
+
+    quantityInput.addEventListener("input", function () {
+      updateTotal();
+    });
+
+    sizeRadios.forEach(function (radio) {
+      radio.addEventListener("change", function () {
+        updateTotal();
+      });
+    });
+
+    toppingCheckboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        updateTotal();
+      });
+    });
+
+    updateTotal();
+
+    // Gán sự kiện bấm nút cho từng nút thêm vào giỏ hàng
+    document.getElementById('addCart').addEventListener('click', (event) => {
+        console.log("Add to cart");
+        product.quantity = currentValue;
+        product.selectedSize = selectedSize;
+        product.selectedTopping = selectedTopping;
+        if(currentValue <= 0 || selectedSize == undefined){
+          alert("vui lòng chọn thông tin sản phẩm")
+          return
+        }
+        addToCart(product);
+        updateCountCart()
+    });
+  });
+</script>
+<%- include('../partials/web-footer.ejs') %>

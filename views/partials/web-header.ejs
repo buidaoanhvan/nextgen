@@ -18,9 +18,9 @@
     />
   </head>
 
-  <body class="pt-24">
+  <body class="pt-0 md:pt-24">
     <div class="fixed z-50 w-full top-0">
-      <div class="bg-[#7A9576] h-[40px]">
+      <div class="bg-[#7A9576] h-[40px] hidden sm:block">
         <div class="container mx-auto flex py-[10px] justify-between">
           <div class="flex items-center">
             <img
@@ -76,21 +76,23 @@
           </div>
         </div>
       </div>
-      <div class="bg-[#F3F6F3] h-[66px]">
+      <div
+        class="lg:bg-[#F3F6F3] bg-[#7A9576] h-[66px] border-white border-b-2"
+      >
         <div class="container mx-auto flex py-[8px] justify-between">
           <div class="bg-[#7A9576] h-[50px] w-[126px] p-3">
             <img src="<%= setting.logo %>" alt="logo" class="w-full h-full" />
           </div>
-          <div class="flex items-center">
+          <div class="items-center hidden lg:flex">
             <ul class="flex items-center mx-5">
               <li class="mx-2 text-xl active"><a href="/">Trang chủ</a></li>
               <li class="mx-2 text-xl"><a href="/gioi-thieu">Giới thiệu</a></li>
-              <li class="mx-2 text-xl">Sản phẩm</li>
-              <li class="mx-2 text-xl">Blog</li>
+              <li class="mx-2 text-xl"><a href="/san-pham">Sản phẩm</a></li>
+              <li class="mx-2 text-xl"><a href="/bai-viet">Blog</a></li>
               <li class="mx-2 text-xl"><a href="/chinh-sach">Chính sách</a></li>
               <li class="mx-2 text-xl"><a href="/lien-he">Liên hệ</a></li>
             </ul>
-            <div class="mx-2 relative">
+            <div class="mx-2 relative hidden xl:block">
               <img
                 src="/img/search.png"
                 alt=""
@@ -108,11 +110,17 @@
                 alt="phone_in_talk"
                 class="w-[30px] h-[30px] my-auto mr-2"
               />
-              <img
-                src="/img/cart.png"
-                alt="phone_in_talk"
-                class="w-[30px] h-[30px] my-auto mr-2"
-              />
+              <a href="/gio-hang" class="relative">
+                <div
+                  id="countCart"
+                  class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-1 -end-1 dark:border-gray-900"
+                ></div>
+                <img
+                  src="/img/cart.png"
+                  alt="phone_in_talk"
+                  class="w-[30px] h-[30px] my-auto mr-2"
+                />
+              </a>
               <img
                 src="/img/user.png"
                 alt="phone_in_talk"
@@ -120,6 +128,170 @@
               />
             </div>
           </div>
+          <div class="flex lg:hidden items-center px-5">
+            <button id="menu-btn">
+              <svg
+                class="w-8 h-8 text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="M5 7h14M5 12h14M5 17h14"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+      <div
+        id="menu-let"
+        class="absolute lg:hidden bg-[#7A9576] h-[75vh] w-[65%] rounded-s-2xl right-0 p-5 hidden"
+      >
+        <a href="/" class="flex justify-end items-center text-white mb-3">
+          Trang chủ
+          <svg
+            class="mx-5 w-6 h-6"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+            />
+          </svg>
+        </a>
+        <a href="/" class="flex justify-end items-center text-white mb-3">
+          Trang chủ
+          <svg
+            class="mx-5 w-6 h-6"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div
+      id="menu-bot"
+      class="flex lg:hidden bg-[#7A9576] h-20 w-[95%] rounded-2xl bottom-5 fixed z-50 left-1/2 transform -translate-x-1/2"
+    >
+      <div class="grid grid-cols-4 gap-4 w-full">
+        <a
+          href="/"
+          class="flex flex-col justify-center items-center text-white text-[12px]"
+        >
+          <svg
+            class="w-8 h-8"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+            />
+          </svg>
+          Trang chủ
+        </a>
+        <a
+          href="/"
+          class="flex flex-col justify-center items-center text-white text-[12px]"
+        >
+          <svg
+            class="w-8 h-8"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+            />
+          </svg>
+          Trang chủ
+        </a>
+        <a
+          href="/"
+          class="flex flex-col justify-center items-center text-white text-[12px]"
+        >
+          <svg
+            class="w-8 h-8"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+            />
+          </svg>
+          Trang chủ
+        </a>
+        <a
+          href="/"
+          class="flex flex-col justify-center items-center text-white text-[12px]"
+        >
+          <svg
+            class="w-8 h-8"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+            />
+          </svg>
+          Trang chủ
+        </a>
       </div>
     </div>

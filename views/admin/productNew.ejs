@@ -1,0 +1,188 @@
+<%- include('../partials/admin-header.ejs') %>
+<div class="p-4 sm:ml-64">
+  <div
+    class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 flex justify-between items-center"
+  >
+    <h1 class="text-xl">Tạo sản phẩm</h1>
+    <form action="" method="post">
+    <button type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+    >
+      Đăng sản phẩm
+    </a>
+  </div>
+  <div
+    class="max-full p-5 mt-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+  >
+    <!-- title -->
+    <div class="mb-6">
+      <label
+        for="product_title"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Tên sản phẩm:</label
+      >
+      <input
+        type="text"
+        id="product_title"
+        name="product_title"
+        placeholder="Nhập tên sản phẩm"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      />
+    </div>
+   <!-- link -->
+   <div class="mb-6">
+    <label
+      for="product_link"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >Link sản phẩm:</label
+    >
+    <input
+      type="text"
+      id="product_link"
+      name="product_link"
+      value=""
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    />
+  </div>
+    <!-- category -->
+    <div class="mb-6">
+      <label
+        for="product_title"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Danh mục:</label
+      >
+      <select name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option selected>Chọn danh mục</option>
+       <% categories.forEach(element => { %>
+        <option value="<%- element.id%>"><%- element.name%></option>
+       <% }) %>
+      </select>
+    </div>
+    <!-- price -->
+    <div class="mb-6">
+      <label
+        for="product_price"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Giá sản phẩm:</label
+      >
+      <input
+        type="number"
+        id="product_price"
+        name="product_price"
+        placeholder="Nhập giá sản phẩm"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      />
+    </div>
+    <!-- Ảnh sản phẩm -->
+    <div class="mb-6">
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        for="product_img"
+        >Ảnh đại diện sản phẩm:</label
+      >
+      <input
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        id="upload_product_img"
+        type="file"
+        accept="image/*"
+      />
+      <input type="text" id="product_img" name="product_img" hidden />
+      <img src="" alt="" id="url_product_img" class="w-60 h-32 mt-5" />
+    </div>
+    <!-- des -->
+    <div class="mb-6">
+      <label
+        for="product_des"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Mô tả sản phẩm:</label
+      >
+      <textarea
+        type="number"
+        id="editor"
+        name="product_des"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Mô tả sản phẩm"
+      ></textarea>
+    </div>
+  </form>
+  </div>
+</div>
+<script>
+  new FroalaEditor("#editor", {
+    imageUploadURL: "/upload",
+    heightMin: 500, // Set minimum height
+    toolbarButtons: [
+      "bold",
+      "italic",
+      "underline",
+      "strikeThrough",
+      "subscript",
+      "superscript",
+      "|",
+      "fontFamily",
+      "fontSize",
+      "color",
+      "inlineStyle",
+      "paragraphStyle",
+      "|",
+      "paragraphFormat",
+      "align",
+      "formatOL",
+      "formatUL",
+      "outdent",
+      "indent",
+      "quote",
+      "-",
+      "insertLink",
+      "insertImage",
+      "insertVideo",
+      "insertFile",
+      "insertTable",
+      "|",
+      "emoticons",
+      "specialCharacters",
+      "insertHR",
+      "selectAll",
+      "clearFormatting",
+      "|",
+      "print",
+      "help",
+      "html",
+      "|",
+      "undo",
+      "redo",
+    ],
+  });
+  // upload img
+  document
+    .getElementById("upload_product_img")
+    .addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const imageUrl = data.link;
+            document.getElementById("product_img").value = imageUrl;
+            document.getElementById("url_product_img").src = imageUrl;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    });
+  //slug
+  document.getElementById("product_title").addEventListener("input", function () {
+    const title = this.value;
+    const slug = generateSlug(title);
+    document.getElementById("product_link").value = slug;
+  });
+
+</script>
+<%- include('../partials/admin-footer.ejs') %>

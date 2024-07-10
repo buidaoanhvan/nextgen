@@ -44,7 +44,6 @@ exports.updatePost = async (data, user, id) => {
   const keyword = JSON.parse(data.post_keyword)
     .map((item) => item.value)
     .join(",");
-    console.log(keyword);
   const post = await prisma.posts.update({
     where: {
       id,

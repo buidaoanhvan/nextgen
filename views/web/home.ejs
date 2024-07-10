@@ -1,19 +1,21 @@
 <%- include('../partials/web-header.ejs') %>
 <!--section 1-->
 <div
-  class="h-[850px] bg-cover bg-center grid grid-cols-2 gap-2 content-center"
+  class="h-[100vh] md:h-[70vh] bg-cover bg-center grid grid-cols-1 md:grid-cols-2 content-center"
   style="background-image: url('<%= contents.BG_HOME_1%>')"
 >
-  <div class="w-full max-w-[534px] my-auto ml-auto p-3 mr-16">
+  <div
+    class="bg-[#000000b3] justify-end md:bg-transparent px-6 mx-auto lg:max-w-[600px] flex flex-col md:justify-center w-full h-full p-3 absolute z-40 bottom-0 md:relative"
+  >
     <%- contents.CONTENT_HOME_1%>
     <button
-      class="my-5 border border-[#7A9576] px-4 py-2 bg-[#E4EAE1] rounded-md text-[#7A9576] text-sm"
+      class="my-5 border border-[#7A9576] px-4 py-2 bg-[#E4EAE1] rounded-md text-[#7A9576] text-sm w-44"
     >
       Chọn món ngay
     </button>
   </div>
-  <div class="grid grid-cols-3 gap-2 max-w-[850px] overflow-hidden">
-    <div class="scrolling-up">
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-2 max-w-[850px] overflow-hidden">
+    <div class="scrolling-up hidden md:block">
       <img src="<%= contents.IMG_SLIDE_HOME_6 %>" alt="" class="w-full mb-2" />
       <img src="<%= contents.IMG_SLIDE_HOME_3 %>" alt="" class="w-full mb-2" />
       <img src="<%= contents.IMG_SLIDE_HOME_1 %>" alt="" class="w-full mb-2" />
@@ -62,7 +64,7 @@
   class="grid max-w-[1200px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 container mx-auto mt-36 justify-center"
 >
   <div
-    class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[360px] mx-auto flex flex-col justify-end rounded-3xl mb-36"
+    class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[360px] mx-auto flex flex-col justify-end rounded-3xl mb-20"
   >
     <img
       src="<%= contents.CARD_2_IMG_1_HOME %>"
@@ -75,7 +77,7 @@
     <p class="text-center"><%= contents.CARD_2_CONTENT_1_HOME %></p>
   </div>
   <div
-    class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-36"
+    class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-20"
   >
     <img
       src="<%= contents.CARD_2_IMG_2_HOME %>"
@@ -88,7 +90,7 @@
     <p class="text-center"><%= contents.CARD_2_CONTENT_2_HOME %></p>
   </div>
   <div
-    class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-36"
+    class="bg-[#F3F6F3] p-9 relative h-[420px] max-w-[378px] mx-auto flex flex-col justify-end rounded-3xl mb-20"
   >
     <img
       src="<%= contents.CARD_2_IMG_3_HOME %>"
@@ -102,7 +104,7 @@
   </div>
 </div>
 <!--section 3-->
-<div class="grid grid-cols-3 mb-36 max-w-[2000px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-3 mb-36 max-w-[2000px] mx-auto">
   <div class="flex justify-start">
     <img src="<%= contents.BG_3_HOME%>" alt="" class="max-h-[400px]" />
   </div>

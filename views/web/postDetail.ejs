@@ -45,7 +45,6 @@
   lis.forEach((li, index) => {
     if (li.querySelector("ol")) {
       let clone = li.cloneNode(true);
-      console.log(clone);
       clone.querySelectorAll("ol").forEach((child) => child.remove());
       li.setAttribute("id", `item-${index}`);
       menu.push({

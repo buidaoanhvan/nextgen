@@ -1,4 +1,39 @@
-console.log("chay");
+console.log("JS Runing");
+
+document.getElementById("menu-btn").addEventListener("click", function () {
+  var menu = document.getElementById("menu-let");
+  menu.classList.toggle("hidden");
+});
+
+let cart = [];
+
+// Hàm lưu giỏ hàng vào localStorage
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  combineCartItems();
+}
+
+// Hàm tải giỏ hàng từ localStorage
+function loadCart() {
+  const cartData = localStorage.getItem("cart");
+  if (cartData) {
+    cart = JSON.parse(cartData);
+  }
+  updateCountCart();
+}
+loadCart();
+
+function updateCountCart() {
+  const countCart = document.getElementById("countCart");
+  countCart.innerText = cart.length;
+}
+
+// Hàm thêm sản phẩm vào giỏ hàng
+function addToCart(product) {
+  cart.push(product);
+  saveCart(); // Lưu giỏ hàng sau khi thêm sản phẩm
+}
+
 document.querySelectorAll(".accordion-header").forEach((button) => {
   button.addEventListener("click", () => {
     const accordionItem = button.parentElement;
@@ -161,4 +196,40 @@ function generateSlug(text) {
     .replace(/[^a-z0-9\s-]/g, "") // Remove invalid chars
     .replace(/\s+/g, "-") // Replace spaces with -
     .replace(/-+/g, "-"); // Replace multiple - with single -
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const moneyElements = document.querySelectorAll(".money");
+  moneyElements.forEach((element) => {
+    const value = parseInt(element.getAttribute("data-value")).toLocaleString(
+      "en-US"
+    );
+    element.textContent = value;
+  });
+});
+
+function combineCartItems() {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  let combinedCart = [];
+  // Create a temporary object to group items
+  let temp = {};
+  cart.forEach((item) => {
+    // Create a unique key for each combination of id, selectedSize, and selectedTopping
+    let key = `${item.id}-${item.selectedSize.id}-${JSON.stringify(
+      item.selectedTopping
+    )}`;
+    // If the key already exists, increment the quantity
+    if (temp[key]) {
+      temp[key].quantity += item.quantity;
+    } else {
+      // Otherwise, add the item to the temporary object
+      temp[key] = { ...item };
+    }
+  });
+  // Convert the temporary object back to an array
+  for (let key in temp) {
+    combinedCart.push(temp[key]);
+  }
+  localStorage.setItem("cart", JSON.stringify(combinedCart));
+  loadCart();
 }
